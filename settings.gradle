@@ -10,6 +10,13 @@ pluginManagement {
         id "net.ltgt.apt" version "0.21"
         id "me.champeau.gradle.jmh" version "0.5.2"
     }
+
+    repositories {
+        mavenCentral()
+        jcenter()
+        gradlePluginPortal()
+        maven { url "file://" + rootProject.getProperties()["projectDir"] + "/../compiler/maven" }
+    }
 }
 
 rootProject.name = 'kotlinx.coroutines'

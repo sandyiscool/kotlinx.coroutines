@@ -54,6 +54,7 @@ buildscript {
     }
 
     repositories {
+        maven { url "file://" + findProperty('checkoutDir').toString() + "/compiler/maven" }
         jcenter()
         maven {
             url "https://kotlin.bintray.com/kotlinx"
