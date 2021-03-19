@@ -15,7 +15,7 @@ pluginManagement {
         mavenCentral()
         jcenter()
         gradlePluginPortal()
-        maven { url "file://" + rootProject.getProperties()["checkoutDir"] + "/../compiler/maven" }
+        maven { url "file://" + rootProject.getProperties()["checkoutDir"] + "/compiler/maven" }
     }
 }
 
