@@ -15,7 +15,7 @@ internal actual abstract class EventLoopImplPlatform : EventLoop() {
     private val current = Worker.current
 
     protected actual fun unpark() {
-        current.execute(TransferMode.SAFE, {}) {} // send an empty task to unpark the waiting event loop
+        current.executeAfter(0L) { } // send an empty task to unpark the waiting event loop
     }
 
     protected actual fun reschedule(now: Long, delayedTask: EventLoopImplBase.DelayedTask): Unit {

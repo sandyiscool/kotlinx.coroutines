@@ -68,7 +68,7 @@ private class BlockingCoroutine<T>(
         // wake up blocked thread
         if (joinWorker != Worker.current) {
             // Unpark waiting worker
-            joinWorker.execute(TransferMode.SAFE, {}) {} // send an empty task to unpark the waiting event loop
+            joinWorker.executeAfter(0L) {} // send an empty task to unpark the waiting event loop
         }
     }
 
