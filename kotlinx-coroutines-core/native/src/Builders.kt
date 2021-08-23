@@ -88,7 +88,7 @@ private class BlockingCoroutine<T>(
                 }
                 // note: process next even may loose unpark flag, so check if completed before parking
                 if (isCompleted) break
-                joinWorker.park(parkNanos / 1000L)
+                joinWorker.park(parkNanos / 1000L, true)
             }
         } finally { // paranoia
             eventLoop?.decrementUseCount()
