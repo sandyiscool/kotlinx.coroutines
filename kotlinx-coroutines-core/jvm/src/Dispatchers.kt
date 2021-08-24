@@ -116,4 +116,8 @@ public actual object Dispatchers {
      */
     @JvmStatic
     public val IO: CoroutineDispatcher = DefaultScheduler.IO
+
+    @JvmStatic
+    @Deprecated(level = DeprecationLevel.HIDDEN, message = "")
+    public fun getDefault(): CoroutineDispatcher = Default
 }
