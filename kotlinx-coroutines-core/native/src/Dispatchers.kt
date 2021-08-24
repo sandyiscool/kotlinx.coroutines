@@ -7,7 +7,7 @@ package kotlinx.coroutines
 import kotlin.coroutines.*
 
 public actual object Dispatchers {
-    public actual val Default: CoroutineDispatcher = createDefaultDispatcher()
+    public actual val Default: SliceableCoroutineDispatcher = createDefaultDispatcher()
     public actual val Main: MainCoroutineDispatcher = NativeMainDispatcher(Default)
     public actual val Unconfined: CoroutineDispatcher get() = kotlinx.coroutines.Unconfined // Avoid freezing
 }

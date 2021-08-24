@@ -10,7 +10,7 @@ import org.w3c.dom.Window
 /**
  * Converts an instance of [Window] to an implementation of [CoroutineDispatcher].
  */
-public fun Window.asCoroutineDispatcher(): CoroutineDispatcher =
+public fun Window.asCoroutineDispatcher(): SliceableCoroutineDispatcher =
     @Suppress("UnsafeCastFromDynamic")
     asDynamic().coroutineDispatcher ?: WindowDispatcher(this).also {
         asDynamic().coroutineDispatcher = it

@@ -58,6 +58,10 @@ public open class ExperimentalCoroutineDispatcher(
     override val executor: Executor
         get() = coroutineScheduler
 
+    override fun slice(parallelism: Int): CoroutineDispatcher {
+        TODO("This one hsould actually work")
+    }
+
     // This is variable for test purposes, so that we can reinitialize from clean state
     private var coroutineScheduler = createScheduler()
 
@@ -152,6 +156,10 @@ private class LimitingDispatcher(
 
     override val executor: Executor
         get() = this
+
+    override fun slice(parallelism: Int): CoroutineDispatcher {
+        TODO("Should not be called?")
+    }
 
     override fun execute(command: Runnable) = dispatch(command, false)
 

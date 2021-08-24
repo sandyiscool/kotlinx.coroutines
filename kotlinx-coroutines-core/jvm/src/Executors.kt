@@ -17,7 +17,7 @@ import kotlin.coroutines.*
  * This class is generally used as a bridge between coroutine-based API and
  * asynchronous API that requires an instance of the [Executor].
  */
-public abstract class ExecutorCoroutineDispatcher: CoroutineDispatcher(), Closeable {
+public abstract class ExecutorCoroutineDispatcher: SliceableCoroutineDispatcher(), Closeable {
     /** @suppress */
     @ExperimentalStdlibApi
     public companion object Key : AbstractCoroutineContextKey<CoroutineDispatcher, ExecutorCoroutineDispatcher>(
@@ -28,6 +28,8 @@ public abstract class ExecutorCoroutineDispatcher: CoroutineDispatcher(), Closea
      * Underlying executor of current [CoroutineDispatcher].
      */
     public abstract val executor: Executor
+
+    override fun slice(parallelism: Int): CoroutineDispatcher = SlicedDispatcher(this, parallelism)
 
     /**
      * Closes this coroutine dispatcher and shuts down its executor.
@@ -110,6 +112,11 @@ private class DispatcherExecutor(@JvmField val dispatcher: CoroutineDispatcher) 
 }
 
 internal class ExecutorCoroutineDispatcherImpl(override val executor: Executor) : ExecutorCoroutineDispatcher(), Delay {
+
+    override fun slice(parallelism: Int): CoroutineDispatcher {
+        require(parallelism >= 1) // TODO
+        return SlicedDispatcher(this, parallelism)
+    }
 
     /*
      * Attempts to reflectively (to be Java 6 compatible) invoke

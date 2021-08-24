@@ -19,7 +19,7 @@ internal val useCoroutinesScheduler = systemProp(COROUTINES_SCHEDULER_PROPERTY_N
     }
 }
 
-internal actual fun createDefaultDispatcher(): CoroutineDispatcher =
+internal fun createDefaultDispatcher(): ExecutorCoroutineDispatcher =
     if (useCoroutinesScheduler) DefaultScheduler else CommonPool
 
 /**

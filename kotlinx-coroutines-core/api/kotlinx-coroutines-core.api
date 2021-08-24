@@ -275,7 +275,7 @@ public abstract interface annotation class kotlinx/coroutines/DelicateCoroutines
 
 public final class kotlinx/coroutines/Dispatchers {
 	public static final field INSTANCE Lkotlinx/coroutines/Dispatchers;
-	public static final fun getDefault ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public static final fun getDefault ()Lkotlinx/coroutines/SliceableCoroutineDispatcher;
 	public static final fun getIO ()Lkotlinx/coroutines/CoroutineDispatcher;
 	public static final fun getMain ()Lkotlinx/coroutines/MainCoroutineDispatcher;
 	public static final fun getUnconfined ()Lkotlinx/coroutines/CoroutineDispatcher;
@@ -297,11 +297,12 @@ public final class kotlinx/coroutines/ExceptionsKt {
 	public static final fun CancellationException (Ljava/lang/String;Ljava/lang/Throwable;)Ljava/util/concurrent/CancellationException;
 }
 
-public abstract class kotlinx/coroutines/ExecutorCoroutineDispatcher : kotlinx/coroutines/CoroutineDispatcher, java/io/Closeable {
+public abstract class kotlinx/coroutines/ExecutorCoroutineDispatcher : kotlinx/coroutines/SliceableCoroutineDispatcher, java/io/Closeable {
 	public static final field Key Lkotlinx/coroutines/ExecutorCoroutineDispatcher$Key;
 	public fun <init> ()V
 	public abstract fun close ()V
 	public abstract fun getExecutor ()Ljava/util/concurrent/Executor;
+	public fun slice (I)Lkotlinx/coroutines/CoroutineDispatcher;
 }
 
 public final class kotlinx/coroutines/ExecutorCoroutineDispatcher$Key : kotlin/coroutines/AbstractCoroutineContextKey {
@@ -497,6 +498,11 @@ public final class kotlinx/coroutines/ParentJob$DefaultImpls {
 
 public final class kotlinx/coroutines/RunnableKt {
 	public static final fun Runnable (Lkotlin/jvm/functions/Function0;)Ljava/lang/Runnable;
+}
+
+public abstract class kotlinx/coroutines/SliceableCoroutineDispatcher : kotlinx/coroutines/CoroutineDispatcher {
+	public fun <init> ()V
+	public abstract fun slice (I)Lkotlinx/coroutines/CoroutineDispatcher;
 }
 
 public final class kotlinx/coroutines/SupervisorKt {
@@ -1163,6 +1169,7 @@ public class kotlinx/coroutines/scheduling/ExperimentalCoroutineDispatcher : kot
 	public fun dispatchYield (Lkotlin/coroutines/CoroutineContext;Ljava/lang/Runnable;)V
 	public fun getExecutor ()Ljava/util/concurrent/Executor;
 	public final fun limited (I)Lkotlinx/coroutines/CoroutineDispatcher;
+	public fun slice (I)Lkotlinx/coroutines/CoroutineDispatcher;
 	public fun toString ()Ljava/lang/String;
 }
 

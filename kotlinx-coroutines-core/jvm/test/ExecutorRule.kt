@@ -16,6 +16,8 @@ class ExecutorRule(private val numberOfThreads: Int) : TestRule, ExecutorCorouti
     override val executor: Executor
         get() = _executor?.executor ?: error("Executor is not initialized")
 
+
+
     override fun apply(base: Statement, description: Description): Statement {
         return object : Statement() {
             override fun evaluate() {

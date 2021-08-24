@@ -12,7 +12,7 @@ private fun takeEventLoop(): EventLoopImpl =
     ThreadLocalEventLoop.currentOrNull() as? EventLoopImpl ?:
         error("There is no event loop. Use runBlocking { ... } to start one.")
 
-internal actual object DefaultExecutor : CoroutineDispatcher(), Delay {
+internal actual object DefaultExecutor : SliceableCoroutineDispatcher(), Delay {
     override fun dispatch(context: CoroutineContext, block: Runnable) =
         takeEventLoop().dispatch(context, block)
     override fun scheduleResumeAfterDelay(timeMillis: Long, continuation: CancellableContinuation<Unit>) =
@@ -20,12 +20,14 @@ internal actual object DefaultExecutor : CoroutineDispatcher(), Delay {
     override fun invokeOnTimeout(timeMillis: Long, block: Runnable, context: CoroutineContext): DisposableHandle =
         takeEventLoop().invokeOnTimeout(timeMillis, block, context)
 
+    override fun slice(parallelism: Int): CoroutineDispatcher = this
+
     actual fun enqueue(task: Runnable): Unit = loopWasShutDown()
 }
 
 internal fun loopWasShutDown(): Nothing = error("Cannot execute task because event loop was shut down")
 
-internal actual fun createDefaultDispatcher(): CoroutineDispatcher =
+internal fun createDefaultDispatcher(): SliceableCoroutineDispatcher =
     DefaultExecutor
 
 @SharedImmutable

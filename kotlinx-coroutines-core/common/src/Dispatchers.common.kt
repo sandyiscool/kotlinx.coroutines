@@ -12,13 +12,13 @@ import kotlin.coroutines.*
 public expect object Dispatchers {
     /**
      * The default [CoroutineDispatcher] that is used by all standard builders like
-     * [launch][CoroutineScope.launch], [async][CoroutineScope.async], etc
+     * [launch][CoroutineScope.launch], [async][CoroutineScope.async], etc.
      * if neither a dispatcher nor any other [ContinuationInterceptor] is specified in their context.
      *
      * It is backed by a shared pool of threads on JVM. By default, the maximum number of threads used
      * by this dispatcher is equal to the number of CPU cores, but is at least two.
      */
-    public val Default: CoroutineDispatcher
+    public val Default: SliceableCoroutineDispatcher
 
     /**
      * A coroutine dispatcher that is confined to the Main thread operating with UI objects.

@@ -4,6 +4,7 @@
 
 package kotlinx.coroutines
 
+import kotlinx.coroutines.internal.*
 import java.util.concurrent.*
 import java.util.concurrent.atomic.*
 import kotlin.coroutines.*
@@ -29,6 +30,8 @@ internal object CommonPool : ExecutorCoroutineDispatcher() {
      * `Runtime.getRuntime().availableProcessors()` is not aware of container constraints and will return the real number of cores.
      */
     private const val DEFAULT_PARALLELISM_PROPERTY_NAME = "kotlinx.coroutines.default.parallelism"
+
+    override fun slice(parallelism: Int): CoroutineDispatcher = SlicedDispatcher(this, parallelism)
 
     override val executor: Executor
         get() = pool ?: getOrCreatePoolSync()
