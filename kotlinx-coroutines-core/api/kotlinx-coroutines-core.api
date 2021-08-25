@@ -502,7 +502,6 @@ public final class kotlinx/coroutines/RunnableKt {
 }
 
 public abstract class kotlinx/coroutines/SliceableCoroutineDispatcher : kotlinx/coroutines/CoroutineDispatcher {
-	public fun <init> ()V
 	public abstract fun slice (I)Lkotlinx/coroutines/CoroutineDispatcher;
 }
 

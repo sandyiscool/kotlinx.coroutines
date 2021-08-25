@@ -4,7 +4,7 @@
 
 package kotlinx.coroutines
 
-public abstract class SliceableCoroutineDispatcher : CoroutineDispatcher() {
+public abstract class SliceableCoroutineDispatcher internal constructor() : CoroutineDispatcher() {
 
     public abstract fun slice(parallelism: Int): CoroutineDispatcher
 }
